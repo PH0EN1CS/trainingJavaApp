@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.Scanner;
-import javax.swing.*;
 
 public class Main {
     static Scanner consoleRead = new Scanner(System.in);
@@ -27,33 +26,29 @@ public class Main {
                     3) Чат-бот
                     4) Играть угадай слово
                     5) Анализ текста
-                    6) Работа с файлами
-                    7) Нажмите 'q' для выхода из программы""");
+                    6) Нажмите 'q' для выхода из программы""");
 
             System.out.print("Выберите вариант: ");
             String input = consoleRead.nextLine().trim();
             switch (input) {
-                case "1": // Калькулятор
+                case "1": case"Калькулятор":// Калькулятор
                     Calc calc = new Calc();
                     calc.Calculator();
                     break;
-                case "2": // Контактная книга
+                case "2": case "Контактная книга": // Контактная книга
                     ContactBook contacts=new ContactBook();
                     contacts.Contacts();
                     break;
-                case "3": // Чат-бот
+                case "3": case "Чат-бот": // Чат-бот
                     chatBot.chat();
                     break;
-                case "4": // Угадай слово
+                case "4": case "Играть угадай слово": // Угадай слово
                     gameWords.guessWord();
                     break;
                 case "5": // Анализ текста
-                    System.out.println("Анализ текста...");
+                    textAnalyze.menu();
                     break;
-                case "6": // Работа с файлами
-                    System.out.println("Работа с файлами...");
-                    break;
-                case "q": case "Q": case "7":
+                case "q": case "Q": case "6":
                     System.out.println("Программа закончила свое выполнение");
                     running = false;
                     break;

@@ -12,7 +12,7 @@ public class chatBot {
         public static void chat() {
             // Загружаем базу при старте
             try {
-                loadAnswers("answers.txt");
+                loadAnswers();
             } catch (IOException e) {
                 System.out.println("⚠ Ошибка загрузки базы: " + e.getMessage());
             }
@@ -47,14 +47,14 @@ public class chatBot {
                 answers.put(userMessage, new ArrayList<>(List.of(newAnswer)));
 
                 // и сохраняем в файл
-                saveAnswer("answers.txt", userMessage, newAnswer);
+                saveAnswer(userMessage, newAnswer);
 
                 System.out.println("✅ Спасибо! Теперь я запомнил.");
             }
         }
 
-        private static void loadAnswers(String fileName) throws IOException {
-            File file = new File(fileName);
+        private static void loadAnswers() throws IOException {
+            File file = new File("answers.txt");
             if (!file.exists()) {
                 System.out.println("⚠ Файл базы не найден, создаю новый...");
                 file.createNewFile();
@@ -71,20 +71,17 @@ public class chatBot {
                         String key = parts[0].toLowerCase();
 
                         // Остальные — варианты ответов
-                        List<String> responses = new ArrayList<>();
-                        for (int i = 1; i < parts.length; i++) {
-                            responses.add(parts[i]);
-                        }
+                        List<String> responses = new ArrayList<>(Arrays.asList(parts).subList(1, parts.length));
 
                         answers.put(key, responses);
                     }
                 }
-                System.out.println("✅ Загружено " + answers.size() + " фраз из " + fileName);
+                System.out.println("✅ Загружено " + answers.size() + " фраз из " + "answers.txt");
             }
         }
 
-        private static void saveAnswer(String fileName, String key, String value) {
-            try (FileWriter writer = new FileWriter(fileName, true)) {
+        private static void saveAnswer(String key, String value) {
+            try (FileWriter writer = new FileWriter("answers.txt", true)) {
                 writer.write(key + "=" + value + "\n");
             } catch (IOException e) {
                 System.out.println("⚠ Ошибка сохранения: " + e.getMessage());

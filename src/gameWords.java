@@ -19,7 +19,7 @@ public class gameWords {
         boolean gameRunning = true; // Локальная переменная для игры
 
         try {
-            loadWords("words.txt");
+            loadWords();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return;
@@ -132,8 +132,8 @@ public class gameWords {
         System.out.println("=================================\n");
     }
 
-    private static void loadWords(String fileName) throws IOException {
-        File file = new File(fileName);
+    private static void loadWords() throws IOException {
+        File file = new File("words.txt");
 
         if(!file.exists()) {
             System.out.println("Файл-словарь не найден, создается новый.");
